@@ -1,73 +1,62 @@
 #!/usr/bin/python3
-"""Solution to the N-Queens puzzle"""
-
 import sys
 
 
 def is_valid(board, row, col):
-    """Checks if the position of queen is valid"""
-    # Check this row on left side
-    if 1 in board[row]:
-        return False
-
-    upper_diag = zip(range(row, -1, -1),
-                     range(col, -1, -1))
-    for i, j in upper_diag:
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
+    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
-
-    lower_diag = zip(range(row, len(board), 1),
-                     range(col, -1, -1))
-    for i, j in lower_diag:
+    for i, j in zip(range(row, len(board), 1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
-
     return True
 
 
-def nqueens_helper(board, col):
-    """Helper method"""
+def solve_nqueens(board, col, solutions):
     if col >= len(board):
-        print_board(board, len(board))
+        solution = []
+        for row in range(len(board)):
+            for col_index in range(len(board[row])):
+                if board[row][col_index] == 1:
+                    solution.append([row, col_index])
+        solutions.append(solution)
+        return True
+    res = False
     for i in range(len(board)):
         if is_valid(board, i, col):
             board[i][col] = 1
-            result = nqueens_helper(board, col + 1)
-            if result:
-                return True
+            res = solve_nqueens(board, col+1, solutions) or res
             board[i][col] = 0
-    return False
+    return res
 
 
-def print_board(board, n):
-    """Prints the position of the queen on board"""
-    b = []
+def nqueens(N):
+    solutions = []
+    board = [[0]*N for _ in range(N)]
+    solve_nqueens(board, 0, solutions)
 
-    for i in range(n):
-        for j in range(n):
-            if board[i][j] == 1:
-                b.append([i, j])
-    print(b)
-
-
-def nqueens(n):
-    """Intrance function for the puzzle"""
-    board = []
-    for i in range(n):
-        row = [0] * n
-        board.append(row)
-    nqueens_helper(board, 0)
+    for solution in solutions:
+        print(solution)
 
 
 if __name__ == "__main__":
+
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
-        exit(1)
-    queens = sys.argv[1]
-    if not queens.isnumeric():
+        sys.exit(1)
+
+    try:
+        N = int(sys.argv[1])
+
+    except ValueError:
         print("N must be a number")
-        exit(1)
-    elif int(queens) < 4:
+        sys.exit(1)
+
+    if N < 4:
         print("N must be at least 4")
-        exit(1)
-    nqueens(int(queens))
+        sys.exit(1)
+
+    nqueens(N)
