@@ -1,9 +1,19 @@
 #!/usr/bin/python3
-""" Pascal_triangle """
+
+"""
+0-pascal_triangle.py: pascal_triangle()
+
+"""
+
+
 
 def pascal_triangle(n):
-    """This function returns a list of lists of integers
-    representing the Pascal’s triangle of n"""
+     """
+        returns a lis of lists of integers
+        Args:
+            n (int): number of lists and digits
+        Returns: list of lists
+    """
     pascal = []
     if n <= 0:
         return pascal
