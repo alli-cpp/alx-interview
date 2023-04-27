@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 """log parsing from stdin"""
 
+
 import sys
+
 counter = 0
 file_size = 0
-statusC_counter = {200: 0, 301: 0, 400: 0, 401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
+statusC_counter = {200: 0, 301: 0, 400: 0,
+                   401: 0, 403: 0, 404: 0, 405: 0, 500: 0}
 
 
 def printCodes(dict, file_s):
@@ -32,5 +35,6 @@ if __name__ == "__main__":
             except:
                 pass
         printCodes(statusC_counter, file_size)
+    except KeyboardInterrupt:
         printCodes(statusC_counter, file_size)
         raise
