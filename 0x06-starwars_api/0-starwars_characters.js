@@ -1,5 +1,6 @@
 #!/usr/bin/node
 const request = require('request');
+
 const endpoint = 'https://swapi-api.hbtn.io/api';
 const filmId = process.argv[2];
 
