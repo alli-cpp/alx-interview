@@ -8,9 +8,9 @@
 def pascal_triangle(n):
     """This function returns a list of lists of integers
     representing the Pascal’s triangle of n"""
-    pascal = []
+    triangle = []
     if n <= 0:
-        return pascal
+        return triangle
 
     for i in range(n):
         inner = []
@@ -18,10 +18,10 @@ def pascal_triangle(n):
             if j == 0 or j == i:
                 inner.append(1)
                 continue
-            top_inner = pascal[i - 1]
+            top_inner = triangle[i - 1]
             value = top_inner[j - 1] + top_inner[j]
             inner.append(value)
 
-        pascal.append(inner)
+        triangle.append(inner)
 
-    return pascal
+    return triangle
