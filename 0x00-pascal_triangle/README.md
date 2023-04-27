@@ -30,4 +30,4 @@ if __name__ == "__main__":
 [1,4,6,4,1]
 
 Outputs the above 
-$```
+```
